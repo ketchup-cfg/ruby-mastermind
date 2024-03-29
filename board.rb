@@ -9,12 +9,8 @@ class Board
     @hints = []
   end
 
-  def board_is_full?
-    guesses.length >= 12
-  end
-
   def add_row(guess, hint)
-    @guesses << guess unless board_is_full?
+    @guesses << guess
     add_hint(hint)
   end
 
@@ -32,6 +28,6 @@ class Board
   private
 
   def add_hint(hint)
-    @hints << hint unless board_is_full?
+    @hints << hint
   end
 end
