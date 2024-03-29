@@ -2,11 +2,11 @@
 
 # The board containing the pegs that have been placed
 class Board
-  attr_reader :spaces, :guesses
+  attr_reader :spaces, :hints
 
   def initialize
     @spaces = []
-    @guesses = []
+    @hints = []
   end
 
   def board_is_full?
@@ -18,17 +18,17 @@ class Board
   end
 
   def add_guess(guess)
-    @guesses << guess unless board_is_full?
+    @hints << guess unless board_is_full?
   end
 
   def clear
     @spaces = []
-    @guesses = []
+    @hints = []
   end
 
   def display
     spaces.each_with_index do |row, i|
-      puts "#{row[0]} #{row[1]} #{row[2]} #{row[3]} | #{guesses[i]}"
+      puts "#{row[0]} #{row[1]} #{row[2]} #{row[3]} | #{hints[i]}"
     end
   end
 end
