@@ -13,12 +13,9 @@ class Board
     spaces.length >= 12
   end
 
-  def add_row(row)
+  def add_row(row, hint)
     @spaces << row unless board_is_full?
-  end
-
-  def add_guess(guess)
-    @hints << guess unless board_is_full?
+    add_hint(hint)
   end
 
   def clear
@@ -28,7 +25,13 @@ class Board
 
   def display
     spaces.each_with_index do |row, i|
-      puts "#{row[0]} #{row[1]} #{row[2]} #{row[3]} | #{hints[i]}"
+      puts "#{row[0]} #{row[1]} #{row[2]} #{row[3]} | #{hints[i].join('')}"
     end
+  end
+
+  private
+
+  def add_hint(hint)
+    @hints << hint unless board_is_full?
   end
 end
