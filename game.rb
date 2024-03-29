@@ -37,6 +37,18 @@ class Game
     end
   end
 
+  def hints(guesses)
+    guesses.map.with_index do |guess, i|
+      if guess == code[i]
+        Peg.green
+      elsif code.include?(guess)
+        Peg.yellow
+      else
+        Peg.default
+      end
+    end
+  end
+
   def guess
     guesses = []
     valid = false
@@ -48,7 +60,9 @@ class Game
       valid = guesses_valid?(guesses)
     end
 
-    puts guesses.join('')
+    board.add_row(guesses, hints(guesses))
+    board.display
+    puts code.join('')
   end
 
   def play
