@@ -7,7 +7,7 @@ require_relative 'peg'
 class Game
   attr_reader :board, :code
 
-  VALID_COLORS = %w[r g b y w m].freeze
+  VALID_COLORS = [Peg.green, Peg.red, Peg.blue, Peg.yellow, Peg.white, Peg.magenta].freeze
 
   def initialize
     reset
@@ -20,7 +20,7 @@ class Game
 
   def set_code
     4.times do
-      @code << [Peg.green, Peg.red, Peg.blue, Peg.yellow, Peg.white, Peg.magenta].sample
+      @code << VALID_COLORS.sample
     end
   end
 
@@ -43,12 +43,12 @@ class Game
 
     until valid
       print 'Please enter your guess, with each color seperated by spaces: '
-      guesses = gets.chomp.downcase.split.map { |guess| guess[0] }
+      guesses = gets.chomp.downcase.split.map { |guess| Peg.translate(guess[0]) }
 
       valid = guesses_valid?(guesses)
     end
 
-    p guesses
+    puts guesses.join('')
   end
 
   def play

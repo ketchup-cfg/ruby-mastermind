@@ -29,4 +29,20 @@ class Peg
   def self.magenta
     colorize(35)
   end
+
+  def self.default
+    colorize(0)
+  end
+
+  def self.translate(color)
+    case color
+    when 'r' then red
+    when 'b' then blue
+    when 'y' then yellow
+    when 'g' then green
+    when 'w' then white
+    when 'm' then magenta
+    else default
+    end
+  end
 end
