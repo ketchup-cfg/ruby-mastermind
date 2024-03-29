@@ -50,7 +50,6 @@ class Game
   end
 
   def guess
-    guesses = []
     valid = false
 
     until valid
@@ -59,14 +58,18 @@ class Game
 
       valid = guesses_valid?(guesses)
     end
+  end
 
-    board.add_row(guesses, hints(guesses))
+  def end_turn(guesses, hints)
+    board.add_row(guesses, hints)
     board.display
-    puts code.join('')
   end
 
   def play
     set_code
-    guess
+    guesses = guess
+    hints = hints(guesses)
+    end_turn(guesses, hints)
+    puts code.join('')
   end
 end
