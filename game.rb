@@ -18,7 +18,7 @@ class Game
     @code = []
   end
 
-  def set_code
+  def setup
     4.times do
       @code << VALID_COLORS.sample
     end
@@ -50,6 +50,7 @@ class Game
   end
 
   def guess
+    guesses = []
     valid = false
 
     until valid
@@ -58,6 +59,8 @@ class Game
 
       valid = guesses_valid?(guesses)
     end
+
+    guesses
   end
 
   def end_turn(guesses, hints)
@@ -65,11 +68,30 @@ class Game
     board.display
   end
 
+  def won?(hints)
+    hints.all? { |hint| hint == Peg.green }
+  end
+
+  def start
+    12.times do
+      guesses = guess
+      hints = hints(guesses)
+      end_turn(guesses, hints)
+
+      if won?(hints)
+        puts 'You guessed the code!'
+        break
+      end
+    end
+  end
+
+  def end_game
+    puts "The code was #{code.join('')}"
+  end
+
   def play
-    set_code
-    guesses = guess
-    hints = hints(guesses)
-    end_turn(guesses, hints)
-    puts code.join('')
+    setup
+    start
+    end_game
   end
 end
